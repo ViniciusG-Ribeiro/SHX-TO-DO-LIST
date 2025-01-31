@@ -17,7 +17,7 @@ export const s = StyleSheet.create({
     elevation: 2, // Para Android
   },
 
-  // Linha para ID e título
+  // linha para ID e título
   taskHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -44,7 +44,7 @@ export const s = StyleSheet.create({
     marginTop: 4,
   },
 
-  // Botões lado a lado
+  // botões lado a lado
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",

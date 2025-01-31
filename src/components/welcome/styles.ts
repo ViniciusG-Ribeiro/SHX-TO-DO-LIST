@@ -28,6 +28,5 @@ export const s = StyleSheet.create({
         fontFamily: fontFamily.regular,
         color: colors.gray[500],
         marginTop: 12,
-
     },
 })

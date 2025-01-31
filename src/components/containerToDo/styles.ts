@@ -4,7 +4,7 @@ import { colors, fontFamily } from "@/src/styles/theme";
 
 export const s = StyleSheet.create({
     container: {
-        flex: 1, // Ocupa a tela inteira
+        flex: 1,
         width: "100%",
         backgroundColor: colors.gray[100],
     },

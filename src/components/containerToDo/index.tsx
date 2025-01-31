@@ -38,12 +38,12 @@ export function ContainerToDo() {
         );
     };
 
-    // Função para remover uma tarefa
+    // remover uma tarefa
     const deleteTask = (id: number) => {
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     };
 
-    // Função para adicionar uma tarefa
+    // adicionar uma tarefa
     const addTask = (taskTitle: string) => {
         setTasks((prevTasks) => {
             const newId = prevTasks.length > 0 ? Math.max(...prevTasks.map(task => task.id)) + 1 : 1;
