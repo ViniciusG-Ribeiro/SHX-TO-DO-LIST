@@ -1,23 +1,31 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { FlatList, Text, View, TouchableOpacity } from "react-native"
 import { s } from "./styles"
 import { List } from "../list"
-import { AddTaskModal } from "../addTaskModal/addTaskModal"
-
-type Task = {
-    id: number;
-    title: string;
-    completed: boolean;
-}
+import { AddTaskModal } from "../addTaskModal"
+import { saveTasks, loadTasks } from "@/src/storage"
+import { fetchTasks, Task } from "@/src/services/API"; 
 
 export function ContainerToDo() {
 
-    const [tasks, setTasks] = useState<Task[]>([
-        { id: 1, title: "Estudar React Native", completed: false },
-        { id: 2, title: "Criar o layout do app", completed: true },
-        { id: 3, title: "Teste com uma tarefa muito grande para testar responsividade do container do app", completed: false },
-        { id: 4, title: "Outro exemplo de tarefa longa para verificar responsividade", completed: false },
-    ])
+    const [tasks, setTasks] = useState<Task[]>([]);
+
+    useEffect(() => {
+        const loadInitialTasks  = async () => {
+            const storedTasks = await loadTasks();
+            if (storedTasks.length >0){
+                setTasks(storedTasks);
+            }else{
+                const apiTasks = await fetchTasks();
+                setTasks(apiTasks);
+            }
+        };
+        loadInitialTasks();
+    }, []);
+
+    useEffect(() => {
+        saveTasks(tasks);
+    }, [tasks]);
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -35,6 +43,7 @@ export function ContainerToDo() {
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     };
 
+    // Função para adicionar uma tarefa
     const addTask = (taskTitle: string) => {
         setTasks((prevTasks) => {
             const newId = prevTasks.length > 0 ? Math.max(...prevTasks.map(task => task.id)) + 1 : 1;
